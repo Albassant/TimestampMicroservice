@@ -1,2 +1,0 @@
-# TimestampMicroservice
-freecodecamp challenge
