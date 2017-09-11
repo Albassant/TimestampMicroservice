@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Welcome to Glitch!</title>
+    <title>My Timestamp Microservice</title>
     <meta name="description" content="A cool thing made with Glitch">
     <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
     <meta charset="utf-8">
@@ -21,19 +21,39 @@
   <body>
     <header>
       <h1>
-        A Dream of the Future
+        My Timestamp Microservice
       </h1>
     </header>
 
     <main>
-      <p class="bold">Oh hi,</p>
-      <p>Tell me your hopes and dreams:</p>
-      <form>
-        <input type="text" maxlength="100" placeholder="Dreams!">
-        <button type="submit">Submit</button>
-      </form>
-      <section id="dreams">
-        
+      <p>
+        <h3 class="bold">User stories:</h3>
+        <ol>
+          <li>I can pass a string as a parameter, and it will check to see whether that string contains either a unix timestamp or a natural language date (example: January 1, 2016)</li>
+          <li>If it does, it returns both the Unix timestamp and the natural language form of that date.</li>
+          <li>If it does not contain a date or Unix timestamp, it returns null for those properties.</li>
+        </ol>
+      </p>
+      <section>
+        <p>
+          <h3 class="bold">Example usage:</h3>
+          <code>
+            https://busy-colony.glitch.me/December%2015,%202015
+          </code>
+          <br>
+          <code>
+            https://busy-colony.glitch.me/1450137600
+          </code>
+        </p>
+      </section>
+      
+      <section>
+        <p>
+          <h3 class="bold">Example output:</h3>
+          <code>
+            { "unix": 1450137600, "natural": "December 15, 2015" }
+          </code>
+        </p>
       </section>
     </main>
 
