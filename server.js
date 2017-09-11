@@ -16,24 +16,39 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-app.get("/dreams", function (request, response) {
-  response.send(dreams);
+app.get("*", function (request, response) {
+  var dateStr = request.params[0].slice(1);
+  var ms = null;
+  if (isNaN(parseInt(dateStr))) {
+    var parsed = Date.parse(dateStr);
+    if (!isNaN(parsed)) {
+      ms = parsed;
+    }
+  }
+  else {
+    ms = dateStr * 1000;
+  }
+  var date = ms == null ? null : new Date(ms);
+  
+  response.send({ 
+    "unix" : ms == null ? null : Math.round(ms/1000), 
+    "natural" : date == null ? null : formatDate(date)
+  });
+  response.end();
 });
-
-// could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
-app.post("/dreams", function (request, response) {
-  dreams.push(request.query.dream);
-  response.sendStatus(200);
-});
-
-// Simple in-memory store for now
-var dreams = [
-  "Find and count some sheep",
-  "Climb a really tall mountain",
-  "Wash the dishes"
-];
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+
+
+function formatDate(fullDate) {
+  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  
+  var date = fullDate.getDate();
+  var month = months[fullDate.getMonth()];
+  var year = fullDate.getFullYear();
+  
+  return month + " " + date + ", " + year;
+}
